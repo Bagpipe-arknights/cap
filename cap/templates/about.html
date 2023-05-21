@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/about.css') }}" rel ="stylesheet" type="text/css" />
+    <title>About</title>
+    <style>
+      .about-section{
+          background-image: url("{{ url_for('static', filename='img/Header') }}");
+          padding: 50px;
+          text-align: center;
+          color: white;
+          background-size: cover;
+      }
+  </style>
+    <style>
+        .home-button {
+            position: fixed; /* Make the button stay at the same place even when the page is scrolled */
+            top: 10px;       /* 10px from the top of the page */
+            left: 10px;     /* 10px from the right of the page */
+        }
+    </style>
+</head>
+<div class="about-section">
+    <h1> ABOUT US</h1>
+    <p>It's about who we are and what we do.</p>
+    <p>By combining a wide range of online retailers and products under one roof, 
+    we have made shopping research simple and convenient for our customers. 
+    Price2Good is a website that allows you to search these sites for the best prices and to gain knowledge 
+    about the products and stores by comparing products that you are looking for.</p>
+  </div>
+  <body>
+        <!-- Button to go to the home page -->
+        <button class="home-button" onclick="location.href='{{ url_for('index') }}'">
+          Back to main page
+      </button>
+  </body>
+  <h2 style="text-align:center">Our Team</h2>
+  <div class="row">
+    <div class="column">
+      <div class="card">
+        <img src="{{ url_for('static', filename='img/Dijo.JPG') }}" alt="Dijo" style="width:50%">
+        <div class="container">
+          <h2>Dijo Jose Vattoly </h2>
+          <p class="title">Data Analyst Lead</p>
+          <p> Key insights into customer's need and ways the data can be used to solve problems</p>
+          <p>djv979@uowmail.edu.au</p>
+          <p><button class="button"><a href= "mailto: djv979@uowmail.edu.au">Contact</button></a></p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card">
+        <img src="{{ url_for('static', filename='img/Zhan.JPG') }}" alt="Zhan" style="width:50%">
+        <div class="container">
+          <h2>Zhan Chen</h2>
+          <p class="title">Backend Lead</p>
+          <p>Creating, maintaining, testing, and debugging the entire back end of website</p>
+          <p>zc140@uowmail.edu.au</p>
+          <p><button class="button"><a href= "mailto:zc140@uowmail.edu.au">Contact</button></a></p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card">
+        <img src="{{ url_for('static', filename='img/Rawi.JPG') }}" alt="Rawi" style="width:50%">
+        <div class="container">
+          <h2>Rawiwan Yamsumrual </h2>
+          <p class="title">Frontend Analyst</p>
+          <p>User-facing features, determining the structure and design of web pages and user's view</p>
+          <p>ry438@uowmail.edu.au</p>
+          <p><button class="button"><a href= "mailto: ry438@uowmail.edu.au">Contact</button></a></p>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+        <div class="card">
+          <img src="{{ url_for('static', filename='img/Chun.JPG') }}" alt="Chun" style="width:50%">
+          <div class="container">
+            <h2>Chun Chen</h2>
+            <p class="title">Backend Analyst and Project Management</p>
+            <p>Server-side web application and integration of the work, also project analysis</p>
+            <p>cc049@uowmail.edu.au</p>
+            <p><button class="button"><a href= "mailto: cc049@uowmail.edu.au">Contact</button></a></p>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="{{ url_for('static', filename='img/Varsh.JPG') }}" alt="Varsh" style="width:50%">
+          <div class="container">
+            <h2>Varsha Johnson</h2>
+            <p class="title">Project Analyst</p>
+            <p>Analysis, research, development and maintenance of the project data and info.</p>
+            <p>vj856@uowmail.edu.au</p>
+            <p><button class="button"><a href= "mailto:vj856@uowmail.edu.au">Contact</button></a></p>
+          </div>
+        </div>
+      </div>
+      <div class="column" >
+        <div class="card">
+          <img src="{{ url_for('static', filename='img/Shreya.JPG') }}" alt="Shre" style="width:50%">
+          <div class="container">
+            <h2>Shreya Arora  </h2>
+            <p class="title">Project Analyst</p>
+            <p>Analysis and research awareness of project management techniques .</p>
+            <p>sa323@uowmail.edu.au</p>
+            <p><button class="button"><a href= "mailto: sa323@uowmail.edu.au">Contact</button></a></p>
+          </div>
+        </div>
+      </div>
+  </div>
+ 
+</html>

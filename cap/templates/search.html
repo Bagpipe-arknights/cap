@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Search</title>
+    <link href="{{ url_for('static', filename='css/search.css') }}" rel ="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+         var deductBalanceUrl = "{{ url_for('deduct_balance') }}";
+        function deductBalance() {
+            $.post(deductBalanceUrl, function(data) {
+                if(data.success) {
+                    alert("Balance deducted!");
+                } else {
+                    alert("Error deducting balance.");
+                }
+            });
+        }
+
+        function saveSearchHistory(searchTerm) {
+            var url = "/save_search";
+            var data = { search_term: searchTerm };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+    </script>
+    <style>
+        .header {
+            padding: 100px;
+            color: white; 
+            position: relative;
+            background-image: url("{{ url_for('static', filename='img/Header1') }}");
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table class="topnav">
+            <a href="{{ url_for('index') }}">Home</a>&nbsp;
+    
+        </table>
+    </div> 
+    <div class="header">  
+    <div class="item"></div>
+    <h1><img src ="{{ url_for('static', filename='img/logo.png') }}" width="40px"> Search PRICE<em>2GOOD</em></h1>
+        <p>Compare prices and find the best online deals in Australia</p>
+        <p><em>Search now the best price</em></p>
+
+        <div class="search">
+            <form action="#">      
+                <input type="text" id="bName" name="bName" placeholder="Search"/><br/>
+                <!--  value="levothyroxine sodium"  -->
+                <button onclick="fetchData()">Get Price</button>
+            </form>
+        </div>
+       </div>
+         
+    
+    <div class="container">
+        <div id="data"></div>
+        <div id="data1"></div>
+    </div>
+
+    <script type="text/javascript">
+
+        //var searchItem = "levothyroxine sodium";
+        var searchItem = "";
+        var sItem = "";
+        var flag1 ="F";
+        var flag2 ="F";
+
+        async function fetchData() {
+            deductBalance();
+            var apiUrl = "http://localhost:3000/medicines";
+            var apiUrl1 = "http://localhost:8000/medicines2";
+
+            sItem = document.getElementById("bName").value;
+            searchItem = sItem.split(" ")[0];
+
+            try {
+                const response1 = await fetch(apiUrl);
+                const response2 = await fetch(apiUrl1);
+                const data1 = await response1.json();
+                const data2 = await response2.json();
+
+                processData(data1);
+                processData1(data2);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        
+
+        function processData(data) {
+            var container = document.getElementById("data");
+            container.innerHTML = "";
+
+
+            data.forEach(i => {
+                var gg_name = i.g_name; // generic name
+                var bb_name = i.b_name; // brand name
+                var net = i.net;       // net content
+                g_name = gg_name.split(" ")[0];
+                b_name = bb_name.split(" ")[0];
+
+                if (b_name.toLowerCase() == searchItem.toLowerCase()) {
+                    var card = createCard("Pharmacy 1", gg_name, bb_name, net);
+                    container.appendChild(card);
+                    flag1="T";
+                    // Save search history to database
+                    saveSearchHistory(searchItem);
+                }
+            });
+
+            if(flag1=="FF"){
+                document.getElementById("data").innerHTML="Seached Item not find";
+            }
+        }
+
+        function processData1(data) {
+            var container = document.getElementById("data1");
+            container.innerHTML = "";
+
+            data.forEach(i => {
+                var gg_name = i.g_name2; // generic name
+                var bb_name = i.b_name2; // brand name
+                var net = i.net2;       // net content
+                g_name = gg_name.split(" ")[0];
+                b_name = bb_name.split(" ")[0];
+
+                if (b_name.toLowerCase() == searchItem.toLowerCase()) {
+                    var card = createCard("Pharmacy 2", gg_name, bb_name, net);
+                    container.appendChild(card);
+                    flag2="T";
+                    // Save search history to database
+                    saveSearchHistory(searchItem);
+                }
+            });
+            if(flag2=="F"){
+                document.getElementById("data1").innerHTML="Seached Item not find";
+            }
+        }
+
+
+        function createCard(pharmacy, genericName, brandName, netContent) {
+            var card = document.createElement("div");
+            card.classList.add("card");
+
+            var header = document.createElement("div");
+            header.classList.add("card-header");
+            header.textContent = pharmacy;
+            card.appendChild(header);
+
+            var data1 = document.createElement("div");
+            data1.classList.add("card-data");
+            data1.textContent = "Generic Name: " + genericName;
+            card.appendChild(data1);
+
+            var data2 = document.createElement("div");
+            data2.classList.add("card-data");
+            data2.textContent = "Brand Name: " + brandName;
+            card.appendChild(data2);
+
+            var data3 = document.createElement("div");
+            data3.classList.add("card-data");
+            data3.textContent = "Net Content: " + netContent;
+            card.appendChild(data3);
+
+
+
+
+            return card;
+        }
+    </script>
+    
+</body>
+</html>
