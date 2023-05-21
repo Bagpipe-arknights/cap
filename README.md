@@ -2,7 +2,7 @@ Flask User Management Application
 This is a Flask-based user management application that provides user registration, login, password reset, and search functionality. The application uses SQLAlchemy for database management, Flask-Login for user authentication, Flask-CORS for CORS support, and Flask-Mail for sending emails.
 
 Installation
-Clone the repository: git clone https://github.com/your_username/your_project.git
+Clone the repository: git clone https://github.com/Bagpipe-arknights/cap.git
 Navigate to the project directory: cd your_project
 Install the required dependencies: pip install -r requirements.txt
 Set up the environment variables for email configuration:
